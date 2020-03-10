@@ -1,30 +1,39 @@
 import Vue from "vue";
-import VueRouter from "vue-router";
-import Home from "../views/Home.vue";
 
-Vue.use(VueRouter);
+import Router from "vue-router";
 
-const routes = [
-  {
-    path: "/",
-    name: "Home",
-    component: Home
-  },
-  {
-    path: "/about",
-    name: "About",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/About.vue")
-  }
-];
+import Buy from "../pages/Buy"; //首页
 
-const router = new VueRouter({
-  mode: "history",
-  base: process.env.BASE_URL,
-  routes
+import LoginOrRegister from "../pages/LoginOrRegister"; //登录页
+
+import Login from "../components/Login";
+
+import PersonalCenter from "../pages/PersonalCenter"; //个人中心
+
+Vue.use(Router);
+
+export default new Router({
+  routes: [
+    {
+      path: "/",
+      name: "Buy",
+      component: Buy
+    },
+    {
+      path: "/LoginOrRegister",
+      component: LoginOrRegister,
+      children: [
+        {
+          path: "Login",
+          name: "Login",
+          component: Login
+        }
+      ]
+    },
+    {
+      path: "/PersonalCenter",
+      component: PersonalCenter,
+      name: PersonalCenter
+    }
+  ]
 });
-
-export default router;
